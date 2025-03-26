@@ -1,0 +1,35 @@
+import Restaurant from "../../../types/restaurants";
+import prisma from "@/utils/db";
+
+const getAllRestaurants = async () => await prisma.restaurant.findMany();
+console.log(getAllRestaurants);
+
+const DetailsRestaurants = async ({
+  params,
+}: {
+  params: Promise<{ id: number }>;
+}) => {
+  const restaurants = await getAllRestaurants();
+  const { id } = await params;
+  console.log(restaurants);
+  if (!restaurants.length) {
+    return <p>Restaurants doesnt exist</p>;
+  }
+
+  console.log("====================================");
+  console.log(restaurants);
+  return (
+    <div>
+      {restaurants.map((restaurants) => (
+        <div key={restaurants.id}>
+          <h1>{restaurants.nom}</h1>
+          <h2>{restaurants.photos}</h2>
+          <h3>Adresse: {restaurants.localisation}</h3>
+          <p>Horaires: {restaurants.horaires}</p>
+        </div>
+      ))}
+    </div>
+  );
+};
+
+export default DetailsRestaurants;

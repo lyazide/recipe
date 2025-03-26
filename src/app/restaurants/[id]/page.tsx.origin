@@ -1,0 +1,24 @@
+import Header from "../../../components/Header";
+import PhotoGallery from "../../../components/PhotoGallery";
+import Location from "../components/Location";
+import Hours from "../../../components/
+
+const HomePage: React.FC = () => {
+  const restaurant = {
+    name: "Le Délice Normand",
+    photos: ["/photo1.jpg", "/photo2.jpg", "/photo3.jpg"],
+    address: "12 Rue de la Paix, Sotteville-lès-Rouen, France",
+    hours: ["Lun-Ven : 09h00 - 21h00", "Sam-Dim : 10h00 - 22h00"],
+  };
+
+  return (
+    <>
+      <Header name={restaurant.name} />
+      <PhotoGallery photos={restaurant.photos} />
+      <Location address={restaurant.address} />
+      <Hours hours={restaurant.hours} />
+    </>
+  );
+};
+
+export default HomePage;
