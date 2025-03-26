@@ -1,4 +1,3 @@
-import Restaurant from "../../../types/restaurants";
 import prisma from "@/utils/db";
 import Header from "../../../components/Header";
 import PhotoGallery from "../../../components/PhotoGallery";
@@ -7,16 +6,12 @@ import Hours from "../../../components/Horaires";
 
 const getAllRestaurants = async () => await prisma.restaurant.findMany();
 
-const DetailsRestaurants = async ({
-  params,
-}: {
-  params: Promise<{ id: number }>;
-}) => {
+const DetailsRestaurants = async ({}: { params: Promise<{ id: number }> }) => {
   const restaurants = await getAllRestaurants();
-  const { id } = await params;
+
   console.log(restaurants);
   if (!restaurants.length) {
-    return <p>Restaurants doesnt exist</p>;
+    return <p>Restaurants does not exist</p>;
   }
 
   return (

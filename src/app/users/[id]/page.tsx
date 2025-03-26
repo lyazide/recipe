@@ -14,7 +14,7 @@ const DetailsUsers = async ({ params }: { params: { id: string } }) => {
   const Recette = await getAllRecette(parsedId);
 
   if (!Recette.length) {
-    return <p>Users doenst have Recette</p>;
+    return <p>User does not have Recette</p>;
   }
   return (
     <p>
