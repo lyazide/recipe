@@ -1,17 +1,12 @@
-import {
-  Box,
-  Heading,
-  HStack,
-  Button,
-  IconButton,
-  Link,
-} from "@chakra-ui/react";
-import NextLink from "next/link";
-import { LuLogIn, LuReceipt, LuUtensils } from "react-icons/lu";
+import { Box, Heading, HStack } from "@chakra-ui/react";
 
 interface HeaderProps {
   name: string;
 }
+
+/*const handleLogout = () => {
+  signOut({ callbackUrl: "/" }); // Redirect to home page after logout
+};*/
 
 const Header: React.FC<HeaderProps> = ({ name }) => {
   return (
@@ -19,41 +14,7 @@ const Header: React.FC<HeaderProps> = ({ name }) => {
       <Heading as="h1" size="lg">
         {name}
       </Heading>
-      <HStack gap="20px" justify="center">
-        <IconButton
-          as={NextLink}
-          href="/"
-          colorScheme="whiteAlpha"
-          colorPalette="white"
-          variant="ghost"
-          rounded="full"
-          aria-label="Login"
-        >
-          <LuLogIn />
-        </IconButton>
-        <IconButton
-          as={NextLink}
-          href="/restaurants/1"
-          aria-label="Restaurant"
-          colorScheme="whiteAlpha"
-          colorPalette="white"
-          variant="ghost"
-          rounded="full"
-        >
-          <LuUtensils />
-        </IconButton>
-        <IconButton
-          as={NextLink}
-          href="/recettes"
-          aria-label="Recettes"
-          colorScheme="whiteAlpha"
-          colorPalette="white"
-          variant="ghost"
-          rounded="full"
-        >
-          <LuReceipt />
-        </IconButton>
-      </HStack>
+      <HStack gap="20px" justify="center"></HStack>
     </Box>
   );
 };

@@ -1,68 +1,33 @@
-import {
-  Box,
-  Heading,
-  SimpleGrid,
-  Text,
-  Link as ChakraLink,
-} from "@chakra-ui/react";
-import NextLink from "next/link";
-import RecetteCard from "@/components/RecetteCard";
 import prisma from "@/utils/db";
-import Header from "@/components/Header";
+import Header from "../components/Header";
+import PhotoGallery from "../components/PhotoGallery";
+import Location from "../components/Location";
+import Hours from "../components/Horaires";
+import { Block } from "@/components/block";
 
-type Recette = {
-  id: number;
-  name: string;
-  description: string;
-  difficulty: number;
-  time: number;
-};
+const getAllRestaurants = async () => await prisma.restaurant.findMany();
 
-// Fonction pour récupérer toutes les recettes
-const getAllRecettes = async (): Promise<Recette[]> => {
-  return await prisma.recette.findMany({
-    select: {
-      id: true,
-      name: true,
-      description: true,
-      difficulty: true,
-      time: true,
-    },
-  });
-};
+const DetailsRestaurants = async ({}: { params: Promise<{ id: number }> }) => {
+  const restaurants = await getAllRestaurants();
 
-const RecettesPage = async () => {
-  const recettes = await getAllRecettes();
+  console.log(restaurants);
+  if (!restaurants.length) {
+    return <p>Restaurants does not exist</p>;
+  }
 
   return (
     <div>
-      <Header name="Toutes les recettes" />
-      <Box p={4}>
-        {recettes.length > 0 ? (
-          <SimpleGrid minChildWidth="sm" gap="40px">
-            {recettes.map((recette) => (
-              <Box key={recette.id} maxW="320px" width="100%">
-                <ChakraLink
-                  as={NextLink}
-                  href={`/recettes/${recette.id}`}
-                  _hover={{ textDecoration: "none" }}
-                >
-                  <RecetteCard
-                    name={recette.name}
-                    description={recette.description}
-                    difficulty={recette.difficulty}
-                    time={recette.time}
-                  />
-                </ChakraLink>
-              </Box>
-            ))}
-          </SimpleGrid>
-        ) : (
-          <Text>Aucune recette trouvée.</Text>
-        )}
-      </Box>
+      <Block />
+      {restaurants.map((restaurants) => (
+        <div key={restaurants.id}>
+          <Header name={restaurants.nom} />
+          <PhotoGallery photos={restaurants.photos} />
+          <Location address={restaurants.localisation} />
+          <Hours hours={restaurants.horaires} />
+        </div>
+      ))}
     </div>
   );
 };
 
-export default RecettesPage;
+export default DetailsRestaurants;

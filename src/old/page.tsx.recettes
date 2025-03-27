@@ -10,6 +10,7 @@ import RecetteCard from "@/components/RecetteCard";
 import prisma from "@/utils/db";
 import Header from "@/components/Header";
 import { Block } from "@/components/block";
+
 type Recette = {
   id: number;
   name: string;

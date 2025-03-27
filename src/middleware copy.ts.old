@@ -1,0 +1,43 @@
+// middleware.tsx
+import { NextResponse } from "next/server";
+import type { NextRequest } from "next/server";
+
+export function middleware(request: NextRequest) {
+  // Récupérer le chemin de la requête
+  const path = request.nextUrl.pathname;
+
+  // Autoriser la route racine
+  if (path === "/restaurants/1") {
+    return NextResponse.next();
+  }
+  if (path === "/api/auth/signin") {
+    return NextResponse.next();
+  }
+  // Exemple de vérification d'authentification
+  // Remplacez ceci par votre logique d'authentification réelle
+  //const isAuthenticated = checkAuth(request);
+
+  if (!isAuthenticated) {
+    // Rediriger vers une page de login si non authentifié
+    return NextResponse.redirect(new URL("/api/auth/signin", request.url));
+  }
+
+  return NextResponse.next();
+}
+
+// Fonction d'exemple pour la vérification d'authentification
+//function checkAuth(request: NextRequest) {
+// Exemple : vérifier un token dans les cookies
+// const token = request.cookies.get("auth_token");
+// return !!token; // Retourne true si le token existe, false sinon
+//}
+
+// Configuration du matcher pour appliquer le middleware
+export const config = {
+  matcher: [
+    /*
+     * Correspond à toutes les routes sauf les fichiers statiques et les API Next.js
+     */
+    "/((?!_next/static|_next/image|favicon.ico).*)",
+  ],
+};

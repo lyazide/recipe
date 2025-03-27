@@ -3,6 +3,7 @@ import RecetteDetails from "@/components/RecetteDetails";
 import prisma from "@/utils/db";
 import { Text } from "@chakra-ui/react";
 import Header from "../../../components/Header";
+import { Block } from "@/components/block";
 
 const getRecetteById = async (id: number) => {
   return await prisma.recette.findUnique({
@@ -30,6 +31,7 @@ const RecetteDetailsPage = async ({ params }: { params: { id: string } }) => {
 
   return (
     <div>
+      <Block />
       <Header name={recette.name} />
       <RecetteDetails
         name={recette.name}
